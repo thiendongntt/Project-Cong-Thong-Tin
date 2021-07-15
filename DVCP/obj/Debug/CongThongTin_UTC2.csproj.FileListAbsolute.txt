@@ -1,0 +1,2 @@
+C:\Users\THIEN DONG\OneDrive\Desktop\DVCP\DVCP\obj\Debug\CongThongTin_UTC2.csprojAssemblyReference.cache
+C:\Users\THIEN DONG\OneDrive\Desktop\CongThongTin_UTC2\DVCP\obj\Debug\CongThongTin_UTC2.csprojAssemblyReference.cache

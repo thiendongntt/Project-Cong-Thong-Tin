@@ -1,0 +1,24 @@
+﻿@model IEnumerable<CongThongTin_UTC2.Models.Post>
+    @{ 
+        GetData data = new GetData();
+    }
+<div class="pl-20 pl-md-0">
+  
+    <div class="popular-post">
+        <h4 class="p-title"><b>PHỔ BIẾN</b></h4>
+        @foreach (var item in Model)
+        {
+            <a class="link oflow-hidden pos-relative mb-20 dplay-block" href="/bai-viet/@item.post_slug">
+                <div style="background-image:url(/Upload/images/@item.AvatarImage),url(/Content/web/images/top-post2.jpg)" class="wh-100x abs-tlr img-bg-head"></div>
+                <div class="ml-120 min-h-100x smallpop">
+                    <h5 class="poppost">@item.post_title</h5>
+                    <h6 class="color-lite-black pt-2 mb-1">
+                        <i class="fa fa-calendar-o mr-1"></i>@String.Format("{0:dd/MM/yyyy}", item.create_date)  <i class="fa fa-eye mr-1 ml-2"></i> @item.ViewCount
+                    </h6>
+                </div>
+            </a>
+        }
+    </div>
+   
+
+</div>

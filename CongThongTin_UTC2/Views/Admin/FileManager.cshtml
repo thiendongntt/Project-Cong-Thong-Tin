@@ -1,0 +1,17 @@
+﻿@model CongThongTin_UTC2.ViewModel.FileViewModel
+@{
+    ViewBag.Title = "Trình quản lý file";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!-- Javascripts -->
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>*@
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <!-- Call the view of the file manager -->
+        @Html.Partial("FilesForm", Model)
+    </div>
+</div>
+

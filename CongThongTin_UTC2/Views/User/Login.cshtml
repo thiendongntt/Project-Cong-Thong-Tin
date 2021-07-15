@@ -1,0 +1,44 @@
+﻿@model CongThongTin_UTC2.ViewModel.LoginViewModel
+
+@{
+    ViewBag.Title = "Login";
+}
+
+    <div class="container">
+        <div class="row" style="margin: 124px 0px; background: #ccc;">
+            <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                <div class="card card-signin my-5">
+                    <div class="card-body">
+
+                        <h5 class="card-title text-center" style="text-align: center; font-weight:400; font-size: 24px;">Đăng Nhập</h5>
+                        <div class="text-center text-danger">@ViewBag.Error</div>
+                        <form class="form-signin" method="post">
+
+                            <div class="form-label-group">
+                                <label for="Username">Tài khoản</label><br />
+                                @Html.TextBoxFor(m => m.Username, new { @class = "form-control", @placeholder = "Tài khoản" })
+                                @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+
+                            </div>
+
+                            <div class="form-label-group">
+
+                                <label for="Password">Mật khẩu</label><br />
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Mật khẩu" })
+                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+
+                            </div>
+
+                            <div class="form-group">
+                                @*<input type="checkbox" class="custom-control-input" id="customCheck1">*@
+                                @Html.CheckBoxFor(m => m.RememberMe, new { @class = "" })
+                                Nhớ mật khẩu
+                            </div>
+                            <div class="text-center text-danger">@ViewBag.Error</div>
+                            <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Đăng nhập</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

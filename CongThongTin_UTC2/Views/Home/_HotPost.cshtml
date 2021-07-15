@@ -1,0 +1,65 @@
+﻿@using CongThongTin_UTC2.Models
+@{
+    StickyPost[] post = new GetData().GetHotPosts();
+}
+@if (post.Length >= 3)
+{
+    <div class="container">
+        <div class="h-sm-300x h-400x">
+            <div class="h-full" style="margin-top: 32px;">
+                <div class="pl-sm-1 float-left w-2-3 w-sm-100 h-100f pr-1 parent">
+                    <a class="pos-relative h-100f dplay-block" href="/bai-viet/@post[0].Post.post_slug">
+                        <div class="child img-bg-head img-bg bg-grad-layer-6" style="background-image:url(/Upload/images/@post[0].Post.AvatarImage),url(/Content/web/images/12.jpg);"></div>
+                        <div class="abs-blr color-white p-20 bg-sm-color-7">
+                            <h4 class="mb-2 font-sm-13"><b>@post[0].Post.post_title</b></h4>
+                            <ul class="list-li-mr-20">
+                                <li>@String.Format("{0:dd/MM/yyyy}", post[0].Post.create_date)</li>
+                                <li><i class="color-primary mr-1 font-12 fa fa-eye"></i>@post[0].Post.ViewCount views</li>
+                            </ul>
+                        </div><!--abs-blr -->
+                    </a><!-- pos-relative -->
+                </div>
+                <!-- w-1-3 -->
+
+                <div class="float-left w-1-3 w-sm-100 h-100f h-sm-600x pr-1">
+
+                    <div class="pl-sm-1 pos-relative h-md-50 ptop-sm ptop-w-sm pbot-md">
+                        <a class="pos-relative h-100f dplay-block" href="/bai-viet/@post[1].Post.post_slug">
+
+                            <div style="background-image:url(/Upload/images/@post[1].Post.AvatarImage),url(/Content/web/images/top-post3.jpg);" class="img-bg bg-grad-layer-6 img-bg-head"></div>
+
+                            <div class="abs-blr color-white p-20 bg-sm-color-7">
+                                <h5 class="mb-2"><b>@post[1].Post.post_title</b></h5>
+                                <ul class="list-li-mr-20">
+                                    <li>@String.Format("{0:dd/MM/yyyy}", post[1].Post.create_date)</li>
+                                    <li><i class="color-primary mr-1 font-12 fa fa-eye"></i>@post[1].Post.ViewCount views</li>
+                                </ul>
+                            </div><!--abs-blr -->
+                        </a><!-- pos-relative -->
+                    </div><!-- w-1-3 -->
+
+                    <div class="pl-sm-1 pl-sm-0 pos-relative h-md-50 ptop-small ptop-sm">
+                        <a class="pos-relative h-100f dplay-block" href="/bai-viet/@post[2].Post.post_slug">
+
+                            <div style="background-image:url(/Upload/images/@post[2].Post.AvatarImage),url(/Content/web/images/top-post2.jpg);" class="img-bg-head img-bg bg-grad-layer-6"></div>
+
+                            <div class="abs-blr color-white p-20 bg-sm-color-7">
+                                <h5 class="mb-2"><b>@post[2].Post.post_title</b></h5>
+                                <ul class="list-li-mr-20">
+                                    <li>@String.Format("{0:dd/MM/yyyy}", post[2].Post.create_date)</li>
+                                    <li><i class="color-primary mr-1 font-12 fa fa-eye"></i>@post[2].Post.ViewCount views</li>
+                                </ul>
+                            </div><!--abs-blr -->
+                        </a><!-- pos-relative -->
+                    </div><!-- w-1-3 -->
+
+                </div><!-- float-left -->
+
+            </div><!-- h-2-3 -->
+            <!-- h-2-3 -->
+        </div><!-- h-100vh -->
+    </div>
+}
+
+
+

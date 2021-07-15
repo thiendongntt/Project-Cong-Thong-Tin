@@ -1,0 +1,60 @@
+﻿@model IEnumerable<CongThongTin_UTC2.Models.Post>
+@{
+    //ViewBag.Title = "Home Page";
+    GetData data = new GetData();
+}
+
+
+<div class="row">
+    <div class="col-12">
+        <!-- Start top-post Area -->
+        @Html.Partial("_HotPost")
+        <!-- End top-post Area -->
+    </div>
+    <div class="col-12">
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h4 class="p-title ml-md-1"><b>BÀI VIẾT GẦN ĐÂY</b></h4>
+                        @foreach (var item in Model)
+                        {
+                            <div class="link row oflow-hidden pos-relative mb-md-2 mb-1 dplay-block ml-md-1">
+                                <div class="col-md-4 col-12 pl-md-0 pb-sm-2" style="height:auto">
+                                    <a href="/bai-viet/@item.post_slug">
+                                        <img src="~/Upload/images/@item.AvatarImage" alt="@item.post_title"
+                                             onerror="this.onerror=null;this.src='/Content/web/images/top-post1.jpg';" />
+                                    </a>
+                                </div><div class="col-md-8 col-12 pt-sm-2 pt-md-0">
+                                    <div class="min-h-100x">
+                                        <h5> <a class="font-weight-bold" href="/bai-viet/@item.post_slug">@item.post_title</a></h5>
+                                        <p>@(item.post_teaser.Length >= 150 ? item.post_teaser.Substring(0, 150) : item.post_teaser + "..")</p>
+                                        @if (!String.IsNullOrWhiteSpace(item.post_review))
+                                        {<p>
+                                                Review: @item.post_review
+                                            </p>
+                                        }
+
+                                        <ul>
+                                            <li class="latest"><span class="fa fa-calendar mr-1" style="color:#777777"></span>@String.Format("{0:dd-MM-yyyy}", item.create_date)</li>
+                                            <li class="latest"><span class="fa fa-tags mr-1" style="color:#777777"></span>@item.Tags.FirstOrDefault().TagName</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                    <!-- container -->
+
+                    <div class="col-md-4">
+                        <!-- Phổ biến -->
+                        @Html.Partial("_PopularPost", data.GetPopularPost())
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+

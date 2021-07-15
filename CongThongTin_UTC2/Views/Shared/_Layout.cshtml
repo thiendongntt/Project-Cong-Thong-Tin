@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cổng thông tin</title>
+    <link rel="icon" href="~/Content/images/abc.png" type="image/x-icon" />
+    <link href="~/Content/web/styles.css" rel="stylesheet" />
+    <link href="~/Content/web/web.css" rel="stylesheet" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="@ViewBag.Title" />
+    <meta property="og:description" content="@ViewBag.Description" />
+    <meta property="og:image" content="@ViewBag.Image" />
+    <meta name="Description" content="@ViewBag.Description" />
+    <meta name="keywords" content="@ViewBag.Tag">
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css?family=Encode+Sans+Expanded:400,600,700" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/Content/AdminLTE/plugins/font-awesome/css/font-awesome.min.css">
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="//fonts.googleapis.com/css?family=Merriweather:400,700%7CDroid+Serif:400,700" rel="stylesheet" type="text/css">
+    @* @Scripts.Render("~/bundles/modernizr")*@
+    @{
+        GetData data = new GetData();
+    }
+</head>
+<body>
+    <header>
+        <div class="bg-191" style="background-color: #3b78ac;">
+            <div class="container">
+                <div class="oflow-hidden color-ash font-9 text-sm-center ptb-sm-5" style="font-size: 16px   ;">
+
+                    <ul class="float-left list-a-plr-10 list-a-plr-sm-5 list-a-ptb-15 list-a-ptb-sm-10 toplink">
+                        @*<li><a class="pl-0 pl-sm-10" href="/Home/Index">Trang chủ </a></li>*@
+                        @if (Session["TaiKhoan"] != null)
+                        {
+                            <li style="color: white;">
+                                 Xin chào @Session["User"] 
+                                 <a style="color: white;" href="/User/DangXuat">Đăng xuất</a>
+                            </li>
+                        }
+                        else
+                        {
+
+                            <li> <a style="color: white;" href="/User/DangNhapUser">Đăng nhập</a> </li>
+                            <li>  <a style="color: white;" href="/User/DangKyUser">Đăng ký</a>
+                       
+                            </li>
+                        }
+
+                        @*@if (Request.IsAuthenticated)
+                            {
+                                <li>@Html.ActionLink("Admin Panel", "Index", "Admin", null, new { @class = "nav-link" })</li>
+                                <li>@Html.ActionLink("Logout", "Logout", "User", null, new { @class = "nav-link" })</li>
+                            }*@
+                    </ul>
+                    <div class="d-inline-block float-right mt-2 mr-4">
+                        <form action="/tim-kiem" method="get">
+                            <input type="text" name="title" placeholder="Tìm kiếm" class="mr-2 txtSearch" style="border-radius: 100px; outline: none; border-color: white;" /><button class="text-white" type="submit"><i class="fa fa-search"></i></button>
+                        </form>
+                    </div>
+                    @*<ul class="float-right float-sm-none list-a-plr-10 list-a-plr-sm-5 list-a-ptb-15 list-a-ptb-sm-5">
+                            <li><a class="pl-0 pl-sm-10" href="#"><i class="fa fa-facebook-official"></i></a></li>
+
+                            <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                        </ul>*@
+                </div>
+            </div>
+            <!-- container -->
+        </div>
+
+        <div class="container back-white">
+            <a class="logo" href="/"><img src="~/Content/images/utc2.png" alt="Logo" style="width: 100px; height: 100px;;"></a>
+
+
+            <a class="menu-nav-icon" data-menu="#main-menu" href="#"><i class="ion-navicon"></i></a>
+
+            <ul class="main-menu2 link" id="main-menu">
+                <li><a href="/">HOME</a></li>
+
+                <li class="drop-down">
+                    <a href="/danh-muc/">DANH MỤC<i class="fa fa-caret-down"></i></a>
+                    <ul class="drop-down-menu drop-down-inner">
+                        @foreach (var i in data.GetListTags().Take(6))
+                        {
+                            <li><a href="/danh-muc/@SlugGenerator.SlugGenerator.GenerateSlug(i.TagName.ToLower())-@i.TagID">@i.TagName</a></li>
+                        }
+                        <li><a href="/danh-muc/">XEM TẤT CẢ</a></li>
+                    </ul>
+                </li>
+                @*<li><a href="/danh-muc/du-an-project-12">PROJECT</a></li>*@
+                <li><a href="/tim-kiem">TÌM NÂNG CAO</a></li>
+
+            </ul>
+
+            <div class="clearfix"></div>
+        </div><!-- container -->
+    </header>
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+    <footer class="bg-191 color-ccc" style="margin-top: 24px; background-color: #092c37">
+
+        <div class="container">
+            <div class="pt-50 pb-20 pos-relative">
+                <div class="abs-tblr pt-50 z--1 text-center">
+                    @*<div class="h-80 pos-relative"><img class="opacty-1 h-100 w-auto" src="~/Content/web/images/map.png" alt=""></div>*@
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="mb-30">
+                            <h5 class="color-primary mb-20"><b>THÔNG TIN LIÊN HỆ</b></h5>
+                            <div class="fb-page" data-href="https://www.facebook.com/nghesinhviennoi.utc2" data-tabs="timeline" data-width="" data-height="300" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/nghesinhviennoi.utc2" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/nghesinhviennoi.utc2">Cổng Thông Tin UTC2</a></blockquote></div>
+                        </div><!-- mb-30 -->
+                    </div><!-- col-md-4 -->
+
+
+                    <div class="col-sm-8">
+                        <div class="mb-30">
+                            <h5 class="color-primary mb-20"><b>ĐỀ XUẤT CAO</b></h5>
+                            @{ var cnt = 2;}
+                            @foreach (var i in data.GetHighRatedPost())
+                            {
+
+                                <div class="mb-20">
+                                    <a class="color-white" href="/bai-viet/@i.slug"><b>@i.post_title</b></a>
+                                    <h6 class="mt-10">@String.Format("{0:dd/MM/yyyy}", i.create_date)</h6>
+                                </div>
+                                if (cnt % 2 == 0)
+                                {
+                                    <div class="brdr-ash-1 opacty-2 mr-30 mb-2 mt-2"></div>
+                                }
+                                cnt++;
+                            }
+
+
+
+                        </div><!-- mb-30 -->
+                    </div><!-- col-md-4 -->
+            
+
+
+                </div><!-- row -->
+            </div><!-- ptb-50 -->
+
+            <div class="brdr-ash-1 opacty-2"></div>
+
+            <div class="oflow-hidden color-ash font-9 text-sm-center ptb-sm-5">
+
+
+
+            </div>
+        </div>
+    </footer>
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v11.0&appId=490674048627253&autoLogAppEvents=1" nonce="Ay0a0JVo"></script>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Content/web/tether.min.js"></script>
+    <script src="~/Content/web/scripts.js"></script>
+    <script src="~/Content/photoswipe/init.js"></script>
+    @RenderSection("scripts", required: false)
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</body>
+</html>
+<script>
+    function myFunction() {
+        var x = document.getElementById("showrepcomment");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+</script>

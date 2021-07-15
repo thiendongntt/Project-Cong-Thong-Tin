@@ -1,0 +1,70 @@
+﻿@model CongThongTin_UTC2.Models.Post
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Xóa</h2>
+
+<h3>Bạn có chắc chắn xóa?</h3>
+<div>
+   
+    <hr />
+    <dl class="dl-horizontal">
+       
+
+        <dt>
+            @Html.DisplayName("Tiêu đề:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.post_title)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Teaser:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.post_teaser)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.post_content)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.post_content)
+        </dd>
+
+        
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ViewCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ViewCount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.status)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

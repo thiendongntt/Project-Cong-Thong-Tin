@@ -1,0 +1,225 @@
+﻿@model CongThongTin_UTC2.ViewModel.ViewPostViewModel
+@{
+    ViewBag.Title = Model.post_title;
+    ViewBag.Description = Model.post_teaser;
+    ViewBag.Image = "~/Upload/images/" + Model.AvatarImage;
+    ViewBag.Tag = Model.post_tag;
+    GetData data = new GetData();
+    var slug = SlugGenerator.SlugGenerator.GenerateSlug(Model.post_title) + "-" + Model.post_id;
+    var post_slug = SlugGenerator.SlugGenerator.GenerateSlug(Model.post_title);
+
+}
+<style>
+    #CommentText {
+        width: 100%;
+    }
+    #inputDang {
+        margin: 0px 93%;
+    }
+</style>
+<div class="mb-2 brdr-ash-1 opacty-5"></div>
+
+<div class="col-12  pl-md-0 pr-md-0">
+    <section class="pt-md-4">
+        <div class="row">
+            <!-- Nội dung chính-->
+            <div class="col-md-8">
+                <!-- BREADCUMB -->
+                <section class="ptb-0 mb-4">
+                    <div class="container bread ml-0 pl-0">
+                        <i class="mr-2 fa fa-home"></i><a class="mt-10 breaditem" href="/">Home </a><i class="mr-2 ml-2 fa fa-chevron-right"></i>
+                        <a class="mt-10 breaditem" href="/danh-muc/@Model.tagLists.FirstOrDefault().slug">@Model.tagLists.FirstOrDefault().name </a><i class="mr-2 ml-2 fa fa-chevron-right"></i>
+                        <a class="mt-10 breadlink" href="/bai-viet/@slug">@Model.post_title</a>
+                    </div>
+                </section>
+                <h1 id="title_post">@Model.post_title</h1>
+                <div id="author_time">
+                <i class="fa fa-clock-o mr-1"></i>
+                @String.Format("{0:dd/MM/yyyy}", Model.create_date)  - 
+                <i class="fa fa-eye mr-1"></i> @Model.ViewCount views
+                   
+                </div>
+                <hr />
+                <div class="content">
+                    <div id="teaser-post">
+                        @Model.post_teaser
+                    </div>
+                    <div class="imgpost">
+                        <div class="imagepost pb-3" style="max-width:80%;margin-left: auto;margin-right: auto;">
+                            <img src="~/Upload/images/@Model.AvatarImage" onerror="this.onerror=null;this.style.display = 'none';" alt="@SlugGenerator.SlugGenerator.GenerateSlug(Model.post_title," ")" />
+                        </div>
+                        <div id="main-content">
+                            @Html.Raw(Model.post_content)
+                        </div>
+                    </div>
+                    <div id="teaser-post">
+                        @Model.post_review
+                        <button>Bình luận</button>
+                        @using (Html.BeginForm("CommentController", "Home", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.Hidden("post_id", @Model.post_id)
+                            @Html.Hidden("post_slug", post_slug)
+                            @Html.TextArea("CommentText")
+                            <br />
+                            <input type="submit" value="Đăng" id="inputDang" />
+                            <div id="comments">
+                                @foreach (var item in Model.commentList)
+                                {
+                                    using (Html.BeginForm("DeleteComment", "Home", FormMethod.Post))
+                                    {
+                                        <div class="comment">
+                                            @Html.Hidden("CommentID", item.CommentID)
+                                            @Html.Hidden("post_slug", post_slug)
+                                            <div class="comment-name" style="color: red;">
+                                                @item.userid
+                                            </div>
+                                            <div class="comment-text">
+                                                @item.CommentText
+                                            </div>
+                                            <button>Xóa</button>
+                                        </div>
+                                        @*<div class="rep-comment">
+                    @using (Html.BeginForm("RepCommentController", "Home", FormMethod.Post))
+                    {
+                        <p onclick="myFunction()">Trả lời</p>
+                    <div id="showrepcomment" style="display: none;">
+                        @Html.TextArea("RepCommentText")
+                        <input type="submit" value="Đăng" />
+
+                        <div class="rep-comments">
+                            <div class="comment-name" style="color: red;">
+                                @item.userid
+                            </div>
+                            <div class="comment-text">
+                                @item.CommentText
+                            </div>
+                        </div>
+
+                    </div>
+                    }
+
+                </div>*@
+
+
+
+                                    }
+
+                                }
+
+                            </div>
+                        }
+                    </div>
+
+                </div>
+                <hr />
+                
+                <div class="float-left-right text-center mt-40 mt-sm-20">
+                
+                    <ul class="mb-30 list-li-mt-10 list-li-mr-5 list-a-plr-15 list-a-ptb-7 list-a-bg-grey list-a-br-2 list-a-hvr-primary ">
+                        @foreach (var i in Model.tagLists)
+                        {
+                            <li><a href="/danh-muc/@i.slug">@i.name</a></li>
+                        }
+                    </ul>
+                    <ul class="mb-30 list-a-bg-grey list-a-hw-radial-35 list-a-hvr-primary list-li-ml-5">
+                        <li class="mr-10 ml-0">Share</li>
+                     
+                        <li>
+                            <div onclick="return buildFbURL(this)" class="fb-share-button" data-layout="button_count" data-size="small"><a onclick="return buildFbURL(this)"  target="_blank" href="#" class="fb-xfbml-parse-ignore">Chia sẻ</a></div>
+                        </li>
+                        <li><a onclick="return buildFbURL(this)" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.facebook.com%2F5951971017hoangdinhthiendong&amp;src=sdkpreparse"><i class="fa fa-facebook"></i></a></li>
+                        <li><a onclick="return buildTwURL(this)" target="_blank" href="#"><i class="fa fa-twitter"></i></a></li>
+
+                    </ul>
+
+                </div>
+                @Html.Partial("_RelatedPost", data.GetRelatedPost(Model.tagLists.FirstOrDefault().id))
+            </div>
+            <div class="col-md-4">
+                @Html.Partial("_PopularPost", data.GetPopularPost())
+            </div>
+        </div>
+    </section>
+</div>
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe.
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides.
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<!-- PHOTO SWIPE -->
+<!-- Core CSS file -->
+<link rel="stylesheet" href="~/Content/photoswipe/dist/photoswipe.css">
+
+<!-- Skin CSS file (styling of UI - buttons, caption, etc.)
+     In the folder of skin CSS file there are also:
+     - .png and .svg icons sprite,
+     - preloader.gif (for browsers that do not support CSS animations) -->
+<link rel="stylesheet" href="~/Content/photoswipe/dist/default-skin/default-skin.css">
+
+<!-- Core JS file -->
+<script src="~/Content/photoswipe/dist/photoswipe.min.js"></script>
+
+<!-- UI JS file -->
+<script src="~/Content/photoswipe/dist/photoswipe-ui-default.min.js"></script>
+@*<script src="~/Content/photoswipe/init.js"></script>*@
+<script src="~/Content/js/share.js"></script>
